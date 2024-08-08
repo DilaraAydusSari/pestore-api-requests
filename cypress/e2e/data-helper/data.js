@@ -31,14 +31,14 @@ class Data {
                 "id": 71,
                 "name": "dog"
             },
-            "name": "Beagle",
+            "name": "Gary",
             "photoUrls": [
                 "string"
             ],
             "tags": [
                 {
                     "id": 711,
-                    "name": "Gary"
+                    "name": "Beagle"
                 }
             ],
             "status": "available"
@@ -53,14 +53,14 @@ class Data {
                 "id": 72,
                 "name": "bird"
             },
-            "name": "Parrot",
+            "name": "Papi",
             "photoUrls": [
                 "string"
             ],
             "tags": [
                 {
                     "id": 721,
-                    "name": "Papi"
+                    "name": "Parrot"
                 }
             ],
             "status": "sold"
@@ -70,7 +70,7 @@ class Data {
 
     updateFormData() {
         const updateBody = {
-            "name": "Beagle",
+            "name": "Gary",
             "status": "sold"
         }
         return updateBody;
