@@ -7,7 +7,7 @@ describe('Pet Tests', () => {
   const params = new Params;
   var url = params.url();
 
-  it('Add a New Pet', () => {
+  it('/v2/pet addPet', () => {
     cy.request({
       method: 'POST',
       url: url + "/v2/pet",
@@ -18,14 +18,14 @@ describe('Pet Tests', () => {
       })
   })
 
-  it('Find Pet By ID', () => {
+  it('/v2/pet/907 getId', () => {
     cy.request('GET', url + "/v2/pet/907")
       .then((response) => {
         expect(response.status).to.eq(200)
       })
   })
 
-  it('Find Pet By ID 404', () => {
+  it('/v2/pet/9077 getId', () => {
     cy.request({
       method: 'GET',
       url: url + "/v2/pet/9077",
@@ -36,7 +36,7 @@ describe('Pet Tests', () => {
       })
   })
 
-  it('Find Pet By ID 405', () => {
+  it('/v2/pet/9077 getNullId', () => {
     cy.request({
       method: 'GET',
       url: url + "/v2/pet/",
@@ -47,7 +47,7 @@ describe('Pet Tests', () => {
       })
   })
 
-  it('Add a New Pet Parrot', () => {
+  it('/v2/pet addSecondPet', () => {
     cy.request({
       method: 'POST',
       url: url + "/v2/pet",
@@ -58,14 +58,14 @@ describe('Pet Tests', () => {
       })
   })
 
-  it('Find Pet By Status', () => {
+  it('/v2/pet/findByStatus?status=sold getStatus', () => {
     cy.request('GET', url + "/v2/pet/findByStatus?status=sold")
       .then((response) => {
         expect(response.status).to.eq(200)
       })
   })
 
-  it('Updates a Pet by ID', () => {
+  it('/v2/pet/907 updatePet', () => {
     cy.request({
       method: 'POST',
       url: url + "/v2/pet/907",
@@ -77,7 +77,7 @@ describe('Pet Tests', () => {
       })
   })
 
-  it('Updates a Pet by Wrong ID', () => {
+  it('/v2/pet/9099 updateWrongId', () => {
     cy.request({
       method: 'POST',
       url: url + "/v2/pet/9099",
@@ -90,7 +90,7 @@ describe('Pet Tests', () => {
       })
   })
 
-  it('Update an Existing Pet', () => {
+  it('/v2/pet updateExistingPet', () => {
     cy.request({
       method: 'PUT',
       url: url + "/v2/pet",
@@ -101,7 +101,7 @@ describe('Pet Tests', () => {
       })
   })
 
-  it('Update by Wrong ID', () => {
+  it('/v2/pet updateErrorId', () => {
     cy.request({
       method: 'PUT',
       url: url + "/v2/pet",
@@ -113,7 +113,7 @@ describe('Pet Tests', () => {
       })
   })
 
-  it('Update Error', () => {
+  it('/v2/pet deleteError', () => {
 
     cy.request({
       method: 'DELETE',
@@ -126,14 +126,14 @@ describe('Pet Tests', () => {
       })
   })
 
-  it('Delete a Pet', () => {
+  it('/v2/pet/907 deletePet', () => {
     cy.request('DELETE', url + '/v2/pet/907')
       .then((response) => {
         expect(response.status).to.eq(200)
       })
   })
 
-  it('Delete the Same Pet Again', () => {
+  it('/v2/pet/907 deleteSamePet', () => {
     cy.request({
       method: 'DELETE',
       url: url + '/v2/pet/907',
@@ -145,7 +145,7 @@ describe('Pet Tests', () => {
       })
   })
 
-  it('Delete Wrong', () => {
+  it('/v2/pet deleteNull', () => {
     cy.request({
       method: 'DELETE',
       url: url + '/v2/pet',
