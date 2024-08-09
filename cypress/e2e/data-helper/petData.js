@@ -1,7 +1,6 @@
-class Data {
+class PetData {
 
     headerPayload() {
-
         const headerBody = {
             "accept": "application/json",
             "Content-Type": "application/x-www-form-urlencoded"
@@ -122,4 +121,4 @@ class Data {
 
 }
 
-export default Data;
+export default PetData;

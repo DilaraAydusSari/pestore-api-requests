@@ -1,9 +1,10 @@
-import Data from "../data-helper/data"
+import PetData from "../data-helper/petData";
 import Params from "../data-helper/params";
+
 
 describe('Pet Tests', () => {
 
-  const data = new Data;
+  const petData = new PetData;
   const params = new Params;
   var url = params.url();
 
@@ -11,7 +12,7 @@ describe('Pet Tests', () => {
     cy.request({
       method: 'POST',
       url: url + "/v2/pet",
-      body: data.dogData()
+      body: petData.dogData()
     })
       .then((response) => {
         expect(response.status).to.eq(200)
@@ -32,7 +33,7 @@ describe('Pet Tests', () => {
       failOnStatusCode: false
     })
       .then((response) => {
-        expect(response.status).to.eq(404)
+        expect(response.status).to.eq(404) //Not Found
       })
   })
 
@@ -43,7 +44,7 @@ describe('Pet Tests', () => {
       failOnStatusCode: false
     })
       .then((response) => {
-        expect(response.status).to.eq(405)
+        expect(response.status).to.eq(405) //Method Not Allowed
       })
   })
 
@@ -51,7 +52,7 @@ describe('Pet Tests', () => {
     cy.request({
       method: 'POST',
       url: url + "/v2/pet",
-      body: data.birdData()
+      body: petData.birdData()
     })
       .then((response) => {
         expect(response.status).to.eq(200)
@@ -69,8 +70,8 @@ describe('Pet Tests', () => {
     cy.request({
       method: 'POST',
       url: url + "/v2/pet/907",
-      body: data.updateFormData(),
-      headers: data.headerPayload()
+      body: petData.updateFormData(),
+      headers: petData.headerPayload()
     })
       .then((response) => {
         expect(response.status).to.eq(200)
@@ -81,12 +82,12 @@ describe('Pet Tests', () => {
     cy.request({
       method: 'POST',
       url: url + "/v2/pet/9099",
-      body: data.updateFormData(),
-      headers: data.headerPayload(),
+      body: petData.updateFormData(),
+      headers: petData.headerPayload(),
       failOnStatusCode: false
     })
       .then((response) => {
-        expect(response.status).to.eq(404)
+        expect(response.status).to.eq(404) //Not Found
       })
   })
 
@@ -94,7 +95,7 @@ describe('Pet Tests', () => {
     cy.request({
       method: 'PUT',
       url: url + "/v2/pet",
-      body: data.updateStatusData("available")
+      body: petData.updateStatusData("available")
     })
       .then((response) => {
         expect(response.status).to.eq(200)
@@ -105,11 +106,11 @@ describe('Pet Tests', () => {
     cy.request({
       method: 'PUT',
       url: url + "/v2/pet",
-      body: data.updateWrongId("9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999"),
+      body: petData.updateWrongId("9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999"),
       failOnStatusCode: false
     })
       .then((response) => {
-        expect(response.status).to.eq(500)
+        expect(response.status).to.eq(500) //Server Error
       })
   })
 
@@ -118,11 +119,11 @@ describe('Pet Tests', () => {
     cy.request({
       method: 'DELETE',
       url: url + '/v2/pet',
-      headers: data.errorHeaderPayload(),
+      headers: petData.errorHeaderPayload(),
       failOnStatusCode: false
     })
       .then((response) => {
-        expect(response.status).to.eq(405)
+        expect(response.status).to.eq(405) //Method Not Allowed
       })
   })
 
@@ -137,23 +138,11 @@ describe('Pet Tests', () => {
     cy.request({
       method: 'DELETE',
       url: url + '/v2/pet/907',
-      headers: data.samePetHeaderPayload(),
+      headers: petData.samePetHeaderPayload(),
       failOnStatusCode: false
     })
       .then((response) => {
-        expect(response.status).to.eq(404)
-      })
-  })
-
-  it('/v2/pet deleteNull', () => {
-    cy.request({
-      method: 'DELETE',
-      url: url + '/v2/pet',
-      headers: data.samePetHeaderPayload(),
-      failOnStatusCode: false
-    })
-      .then((response) => {
-        expect(response.status).to.eq(405)
+        expect(response.status).to.eq(404) //Not Found
       })
   })
 
